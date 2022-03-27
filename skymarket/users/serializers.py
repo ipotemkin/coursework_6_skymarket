@@ -8,7 +8,8 @@ User = get_user_model()
 
 
 class UserRegistrationSerializer(BaseUserRegistrationSerializer):
-    pass
+    class Meta(BaseUserRegistrationSerializer.Meta):
+        model = User
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):

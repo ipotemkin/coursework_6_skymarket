@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
+    "drf_spectacular",
     "rest_framework",
     "djoser",
     "users",
@@ -83,6 +85,7 @@ WSGI_APPLICATION = "skymarket.wsgi.application"
 
 # TODO здесь мы настраиваем аутентификацию и пагинацию
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 DJOSER = {
@@ -158,3 +161,11 @@ EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'SKYVITO API',
+    'DESCRIPTION': 'Simple API on DRF',
+    'VERSION': '1.0.0',
+}
+
+AUTH_USER_MODEL = 'users.User'
