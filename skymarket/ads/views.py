@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import pagination, viewsets
 from rest_framework.decorators import action
 
@@ -7,6 +8,29 @@ from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer 
 
 class AdPagination(pagination.PageNumberPagination):
     pass
+
+
+def build_query(request):
+    """builds a query with the specified query params"""
+
+    query = Q()
+
+    if search := request.GET.get('search'):
+        query |= Q(title__icontains=search)
+
+    # if search_loc := request.GET.get('location'):
+    #     query &= Q(author__locations__name__icontains=search_loc)
+    #
+    # if search_price_from := request.GET.get('price_from'):
+    #     query &= Q(price__gte=search_price_from)
+    #
+    # if search_price_to := request.GET.get('price_to'):
+    #     query &= Q(price__lte=search_price_to)
+    #
+    # if username := request.GET.get('username'):
+    #     query &= Q(author__username__icontains=username)
+
+    return query
 
 
 # TODO view функции. Предлагаем Вам следующую структуру - но Вы всегда можете использовать свою
@@ -19,9 +43,17 @@ class AdViewSet(viewsets.ModelViewSet):
         print(self.action)
         return super().retrieve(request, *args, **kwargs)
 
-    # def list(self, request, *args, **kwargs):
-    #     print(self.action)
-    #     return super().list(request, *args, **kwargs)
+    def list(self, request, *args, **kwargs):
+        """shows a list of ads"""
+
+        if query := build_query(request):
+            self.queryset = (
+                self.get_queryset()
+                    .select_related("author")
+                    .filter(query)
+                    .distinct()
+            )
+        return super().list(request, *args, **kwargs)
 
     @action(detail=False, methods=['get'])
     def me(self, request, *args, **kwargs):
