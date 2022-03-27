@@ -1,4 +1,5 @@
 from rest_framework import pagination, viewsets
+from rest_framework.decorators import action
 
 from ads.models import ADO, COMO
 from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer  # , CommentCreateSerializer
@@ -15,7 +16,18 @@ class AdViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = AdDetailSerializer
+        print(self.action)
         return super().retrieve(request, *args, **kwargs)
+
+    # def list(self, request, *args, **kwargs):
+    #     print(self.action)
+    #     return super().list(request, *args, **kwargs)
+
+    @action(detail=False, methods=['get'])
+    def me(self, request, *args, **kwargs):
+        # print(self.action)
+        self.queryset = ADO.filter(author_id=request.user.id)
+        return super().list(request, *args, **kwargs)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
