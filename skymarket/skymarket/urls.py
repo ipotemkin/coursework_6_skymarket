@@ -5,8 +5,12 @@ from django.conf.urls.static import static
 
 # TODO здесь необходимо подклюючит нужные нам urls к проекту
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("redoc-tasks/", include("redoc.urls")),
+    path("", include("users.urls")),
+    path("", include("ads.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

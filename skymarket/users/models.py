@@ -19,13 +19,11 @@ class User(AbstractBaseUser):
 
     ROLES = [(USER, "Пользователь"), (ADMIN, "Администратор")]
 
-    email = models.EmailField(
-        null=True,
-        blank=True,
-        unique=True,
-        verbose_name="Email"
-    )
-    phone = models.CharField(max_length=20, verbose_name="Телефон")
+    email = models.EmailField(unique=True, verbose_name="Email address")
+    first_name = models.CharField(max_length=64, verbose_name="Имя")
+    last_name = models.CharField(max_length=64, verbose_name="Фамилия")
+    # password = models.CharField(max_length=256, verbose_name="Password")
+    phone = models.CharField(max_length=128, verbose_name="Телефон для связи")
     role = models.CharField(max_length=5, choices=ROLES, default=USER, verbose_name="Роль")
 
     @property
