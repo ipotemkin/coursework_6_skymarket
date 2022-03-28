@@ -179,9 +179,14 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'SKYVITO API',
-    'DESCRIPTION': 'Simple API on DRF',
+    'TITLE': 'SKYMARKET API',
+    'DESCRIPTION': 'Simple API on DRF (Coursework 5)',
     'VERSION': '1.0.0',
 }
 
 AUTH_USER_MODEL = 'users.User'
+
+
+class UserRoles:
+    USER = "user"
+    ADMIN = "admin"
