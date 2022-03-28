@@ -12,5 +12,6 @@ class UserRegistrationSerializer(BaseUserRegistrationSerializer):
         model = User
 
 
+# я не использовал этот класс
 class CurrentUserSerializer(serializers.ModelSerializer):
     pass
