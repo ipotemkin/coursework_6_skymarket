@@ -33,10 +33,6 @@ function Main(props) {
       if (Math.round(response.data.count / 3.2) < page) {
         setPageQty(1);
         props.history.replace("/");
-      } else if (response.status === 500) {
-        console.log("На сервере произошел сбой");
-      } else {
-        console.log(response.status);
       }
     }
   };
@@ -57,10 +53,8 @@ function Main(props) {
         setPage(1);
         props.history.replace("/");
       }
-    } else if (response.status === 500) {
-      console.log("На сервере произошел сбой");
     } else {
-      console.log(response.status);
+      alert("we found the mistake");
     }
   };
 
@@ -74,14 +68,8 @@ function Main(props) {
 
   return (
     <main className="Main">
-      <Promo
-        Pagination={Pagination}
-        PaginationItem={PaginationItem}
-        pageQty={pageQty}
-        page={page}
-        setPage={setPage}
-      />
-      <Cards ads={filteredAds} />
+      <Promo Pagination={Pagination} PaginationItem={PaginationItem} pageQty={pageQty} page={page} setPage={setPage}/>
+        <Cards ads={filteredAds} />
     </main>
   );
 }

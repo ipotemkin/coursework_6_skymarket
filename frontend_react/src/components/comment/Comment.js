@@ -13,17 +13,15 @@ function Comment(comment, { setComments }) {
   let api = useAxios();
 
   useEffect(() => {
-    handleGetComment();
-  }, [user]);
-
-  const handleGetComment = async () => {
-    const response = await api.get(
-      `/ads/${comment.adId}/comments/${comment.commentId}/`
-    );
-    if (response.status === 200) {
-      setGetComment(response.data);
-    }
-  };
+    const handleGetComment = async () => {
+      const response = await api.get(
+        `/ads/${comment.adId}/comments/${comment.commentId}/`
+      );
+      if (response.status === 200) {
+        setGetComment(response.data);
+      }
+    };
+  }, []);
 
   const editComment = async (e) => {
     e.preventDefault();
@@ -79,25 +77,23 @@ function Comment(comment, { setComments }) {
           {comment.authorName}
         </p>
         <div className="commentBox">
-          <p className="comment-text comment-message">{comment.text}</p>
-          {user.user_id === comment.userId ? (
-            <Buttons
-              className="comment-buttons"
-              classButton="comment-button"
-              onOpen={handleEditCommPopupOpen}
-              onSubmit={deleteComment}
-            />
-          ) : null}
+        <p className="comment-text comment-message">{comment.text}</p>
+        {user.user_id === comment.userId ? (
+          <Buttons
+            className="comment-buttons"
+            classButton="comment-button"
+            onOpen={handleEditCommPopupOpen}
+            onSubmit={deleteComment}
+          />
+        ) : null}
         </div>
       </li>
       <EditCommentPopup
         onClose={closePopup}
         isOpen={isComPopupOpen}
         getComment={getComment}
-        text={getComment.text}
         id={comment.adId}
         editComment={editComment}
-        setGetComment={setGetComment}
       />
     </>
   );

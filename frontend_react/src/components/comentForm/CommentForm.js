@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import useFormValidation from "../../utils/hooks/useFormValidation";
 
 function CommentForm({addComment}) {
-  const [text, setText] = useState("");
+  const [validInput, setValidInput] = useState("");
   const { values, handleChange, errors, isValid} = useFormValidation();
 
   function handleChangeInput(e) {
     handleChange(e);
-    if (text.length > 0) {
-      setText("");
+    if (validInput.length > 0) {
+      setValidInput("");
     }
   }
 
@@ -29,10 +29,10 @@ function CommentForm({addComment}) {
         />
         <div
           className={`Comment__input-hidden ${
-            errors.text ? "Comment__input-error" : ""
+            errors.comment ? "Comment__input-error" : ""
           }`}
         >
-          {errors.text}
+          {errors.comment}
         </div>
       </label>
       <button

@@ -31,12 +31,8 @@ function Header({ onOpen, logOut }) {
         <>
           <img className="header__img" src={asd} alt="asd icon" />
           <MediaQuery minWidth={1000}>
-            <Button
-              logOut={logOut}
-              text="Выйти"
-              className="button-link button-link__text"
-              user={user}
-            />
+            <Navigation user={user} />
+            <Button logOut={logOut} text="Выйти" className="button-link button-link__text"/>
           </MediaQuery>
           <MediaQuery maxWidth={999}>
             <img
@@ -53,11 +49,7 @@ function Header({ onOpen, logOut }) {
             <img className="header__img" src={asd} alt="asd icon" />
           </Link>
           <Link className="link" to="/sign-in">
-            <Button
-              user={user}
-              text="Войти"
-              className="button-link button-link__text"
-            />
+            <Button user={user} text="Войти" className="button-link button-link__text"/>
           </Link>
         </>
       )}

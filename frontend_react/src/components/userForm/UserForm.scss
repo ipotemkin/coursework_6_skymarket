@@ -35,14 +35,6 @@
   @include padding();
 }
 
-.userForm__title-comment,
-.userForm__title-important {
-  @media screen and (max-width: 420px) {
-    padding-left: 0;
-    margin-left: 0 !important;
-  }
-}
-
 .userForm__margin {
   margin-left: 8px;
 }
@@ -64,7 +56,7 @@
   width: 45%;
   @include flexColumn();
   box-sizing: border-box;
-  padding-bottom: 4px;
+  padding-bottom: 12px;
   @media screen and (min-width: 420px) and (max-width: 620px) {
     width: 48%;
   }
@@ -96,9 +88,15 @@
   color: #000;
 }
 
+.userForm__button-main, .userForm__btn-main {
+  @media screen and (min-width: 700px){
+   width: 22% !important;
+  }
+}
+
 .userForm__button {
+  width: 35%;
   background-color: #6464b9;
-  width: fit-content;
   padding: 12px 24px;
   text-align: center;
   border: none;
@@ -108,9 +106,13 @@
     opacity: 0.3;
   }
   @media screen and (min-width: 421px) and (max-width: 700px) {
+    padding: 15px 0 15px;
+    width: 30%;
   }
   @media screen and (max-width: 420px) {
+    padding: 15px 0 15px;
     margin-left: 5%;
+    width: 35%;
   }
 }
 
