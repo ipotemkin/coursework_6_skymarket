@@ -132,3 +132,6 @@ dmypy.json
 ./django_static
 
 checkpass.py
+
+skymarket/data
+skymarket/data_old
