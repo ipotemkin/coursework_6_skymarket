@@ -38,7 +38,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name_plural = "Отзывы"
         verbose_name = "Отзыв"
-        # ordering = ["-created_at"]
+        ordering = ["-created_at"]
 
     def __str__(self):
         return self.text[:20]
