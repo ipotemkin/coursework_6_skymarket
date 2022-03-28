@@ -1,8 +1,10 @@
 from django.db.models import Q
 from rest_framework import pagination, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 
 from ads.models import ADO, COMO
+from ads.permissions import IsAdmin, IsAuthor
 from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer  # , CommentCreateSerializer
 
 
@@ -61,6 +63,16 @@ class AdViewSet(viewsets.ModelViewSet):
         self.queryset = ADO.filter(author_id=request.user.id)
         return super().list(request, *args, **kwargs)
 
+    def get_permissions(self):
+        """sets permissions for ads' views"""
+
+        permissions = []
+        if self.action in ("retrieve", "me"):
+            permissions = (IsAuthenticated,)
+        elif self.action in ("update", "partial_update", "destroy"):
+            permissions = (IsAuthenticated & (IsAdmin | IsAuthor),)
+        return [permission() for permission in permissions]
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = COMO.all()
@@ -80,3 +92,13 @@ class CommentViewSet(viewsets.ModelViewSet):
         print(f'ad_id={kwargs["ad_pk"]}')
         print(f'author_id={request.user.id}')
         return super().create(request, *args, **kwargs)
+
+    def get_permissions(self):
+        """sets permissions for comments' views"""
+
+        permissions = []
+        if self.action in ("list", "retrieve", "create"):
+            permissions = (IsAuthenticated,)
+        elif self.action in ("update", "partial_update", "destroy"):
+            permissions = (IsAuthenticated & (IsAdmin | IsAuthor),)
+        return [permission() for permission in permissions]
