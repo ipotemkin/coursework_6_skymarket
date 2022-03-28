@@ -25,9 +25,9 @@ class IsAdmin(permissions.BasePermission):
         return request.user.role == User.ADMIN
 
 
-class IsSelf(permissions.BasePermission):
-    message = "Allowed only for the record's owner"
-
-    def has_permission(self, request, view):
-        return request.user.id == view.get_object().id
-
+# not used so far
+# class IsSelf(permissions.BasePermission):
+#     message = "Allowed only for the record's owner"
+#
+#     def has_permission(self, request, view):
+#         return request.user.id == view.get_object().id

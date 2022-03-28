@@ -57,9 +57,15 @@ class AdViewSet(viewsets.ModelViewSet):
             )
         return super().list(request, *args, **kwargs)
 
+    def create(self, request, *args, **kwargs):
+        """creates a new ad"""
+
+        self.serializer_class = AdDetailSerializer
+        request.data["author_id"] = request.user.id
+        return super().create(request, *args, **kwargs)
+
     @action(detail=False, methods=['get'])
     def me(self, request, *args, **kwargs):
-        # print(self.action)
         self.queryset = ADO.filter(author_id=request.user.id)
         return super().list(request, *args, **kwargs)
 
@@ -67,7 +73,7 @@ class AdViewSet(viewsets.ModelViewSet):
         """sets permissions for ads' views"""
 
         permissions = []
-        if self.action in ("retrieve", "me"):
+        if self.action in ("retrieve", "create", "me"):
             permissions = (IsAuthenticated,)
         elif self.action in ("update", "partial_update", "destroy"):
             permissions = (IsAuthenticated & (IsAdmin | IsAuthor),)
@@ -80,17 +86,13 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         self.queryset = COMO.filter(ad_id=kwargs["ad_pk"])
-        # print(f'pk={kwargs["ad_pk"]}')
         return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         """creates a new comments"""
 
-        # self.serializer_class = CommentCreateSerializer
         request.data["author_id"] = request.user.id
         request.data["ad_id"] = kwargs["ad_pk"]
-        print(f'ad_id={kwargs["ad_pk"]}')
-        print(f'author_id={request.user.id}')
         return super().create(request, *args, **kwargs)
 
     def get_permissions(self):
