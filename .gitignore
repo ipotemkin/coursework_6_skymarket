@@ -135,6 +135,6 @@ checkpass.py
 
 skymarket/data
 skymarket/data_old
-fixtures/backup/data_ads.json
-fixtures/backup/data_all.json
-fixtures/backup/
+#skymarket/fixtures/backup/data_ads.json
+#fixtures/backup/data_all.json
+skymarket/fixtures/backup/

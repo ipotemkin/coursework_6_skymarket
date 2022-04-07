@@ -1,1 +1,5 @@
-# coursework_5
+A marketplace API
+======
+
+For usage please consult Swagger GUI on the index page
+------

@@ -4,7 +4,7 @@ from users.models import User
 
 
 class Ad(models.Model):
-    image = models.ImageField(upload_to="images/", null=True, verbose_name="Фото")
+    image = models.ImageField(upload_to="images/", null=True, blank=True, verbose_name="Фото")
     title = models.CharField(
         max_length=200,
         verbose_name="Название товара"

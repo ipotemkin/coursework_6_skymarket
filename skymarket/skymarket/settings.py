@@ -184,6 +184,12 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
 }
 
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    }
+}
+
 AUTH_USER_MODEL = 'users.User'
 
 
